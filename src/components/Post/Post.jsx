@@ -23,11 +23,11 @@ console.log(formattedDate);
 
       <div className={styles.content}>
         <p>Fala galeraa 👋</p>
-        <p>Acabei de subir mais um projeto no meu portifa. É um projeto que fiz no NLW Return, evento da Rocketseat. O nome do projeto é DoctorCare 🚀</p>
-        <p>👉{' '}<a href='#'>jane.design/doctorcare</a></p>
+        <p>Acabei de subir mais um projeto no meu github. É um projeto que fiz com React. O nome do projeto é Ignite Feed 🚀</p>
+        <p>👉{' '}<a href='#'>janhttps://ezin1.github.io/ignite-feed-reactjs</a></p>
         <p>
           <a href='#'>#novoprojeto</a>{' '}
-          <a href='#'>#nlw</a>{' '} 
+          <a href='#'>#react</a>{' '} 
           <a href='#'>#rocketseat</a>{' '}
         </p>
       </div>
@@ -45,9 +45,21 @@ console.log(formattedDate);
       </form>
 
       <div className={styles.commentList}> 
-        <Comment />
-        <Comment />
-        <Comment />
+        <Comment 
+          author="José Alencar" 
+          content="Muito legal!" 
+          avatar="https://images.unsplash.com/photo-1487222477894-8943e31ef7b2"
+        />
+        <Comment 
+          author="Maria Silva" 
+          content="Gostei muito da interface!" 
+          avatar="https://images.unsplash.com/photo-1494790108377-be9c29b29330"
+        />
+        <Comment 
+          author="Ruan Kaio" 
+          content="Projeto bem estruturado, parabéns!" 
+          avatar="https://images.unsplash.com/photo-1584999734482-0361aecad844"
+        />
       </div>
     </article>
   )

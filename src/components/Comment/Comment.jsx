@@ -1,19 +1,19 @@
 import styles from './Comment.module.css';
 import {ThumbsUp, Trash} from 'phosphor-react';
-export function Comment() {
+export function Comment(props) {
     let dateTime = new Date();
     dateTime.setHours(dateTime.getHours() - 1);
     let formattedDate = dateTime.toLocaleString('pt-BR');
 
     return (
         <div className={styles.comment}>
-            <img src='https://github.com/ezin1.png'></img>
+            <img src={props.avatar}></img>
 
             <div className={styles.commentBox}>
                 <div className={styles.commentContent}>
                     <header>
                         <div className={styles.authorAndTime}>
-                            <strong>Ézio Feitosa</strong>
+                            <strong>{props.author}</strong>
                             <time dateTime={formattedDate}>Cerca de 1h atrás</time>
 
                         </div>
@@ -23,7 +23,7 @@ export function Comment() {
                         </button>
                     </header>
 
-                    <p>Muito bom Ézio, parabéns!! 👏👏</p>
+                    <p>{props.content}</p>
                 </div>
 
                 <footer>

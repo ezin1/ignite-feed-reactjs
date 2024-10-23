@@ -5,7 +5,7 @@ import { Comment } from '../Comment/Comment';
 
 
 
-export function Post({author, publishedAt, content}) {
+export function Post({author, publishedAt, content, id}) {
     const publishedDateFormatted = format(publishedAt, "d 'de' LLLL 'às' HH:mm'h'", {locale: ptBR});
     const publishedDateRelativeToNow = formatDistanceToNow(publishedAt, {
       locale: ptBR,
@@ -28,13 +28,18 @@ export function Post({author, publishedAt, content}) {
       </header>
 
       <div className={styles.content}>
-        {content.map(line => {
-          if(line.type === 'paragraph') {
-            return <p>{line.content}</p>
-          }
-          else if(line.type === 'link') {
-            return <p><a href="#">{line.content}</a></p>
-          }
+        {content.map((line) => {
+            if (line.type === 'paragraph') {
+              return <p key={id}>{line.content}</p>
+            } else if (line.type === 'link') {
+              return (
+                <p key={id}>
+                  <a href="#">{line.content}</a>
+                </p>
+              )
+            } else {
+              return null;
+            }
         })}
       </div>
 

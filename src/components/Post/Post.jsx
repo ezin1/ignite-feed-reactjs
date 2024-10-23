@@ -2,15 +2,28 @@ import styles from './Post.module.css';
 import {format, formatDistanceToNow} from 'date-fns';
 import { ptBR } from 'date-fns/locale';
 import { Comment } from '../Comment/Comment';
+import { useState } from 'react';
 
 
+export function Post({author, publishedAt, content}) {
 
-export function Post({author, publishedAt, content, id}) {
+    const [comments, setComments] = useState([1, 2]);
+
     const publishedDateFormatted = format(publishedAt, "d 'de' LLLL 'às' HH:mm'h'", {locale: ptBR});
     const publishedDateRelativeToNow = formatDistanceToNow(publishedAt, {
       locale: ptBR,
       addSuffix: true
     });
+
+    const handleCreateNewComment = (event) => {
+      event.preventDefault();
+      
+      setComments([...comments, comments.length + 1]);
+    
+      console.log(comments);
+    }
+
+
   return (
     <article className={styles.post}>
       <header>
@@ -28,12 +41,12 @@ export function Post({author, publishedAt, content, id}) {
       </header>
 
       <div className={styles.content}>
-        {content.map((line) => {
+        {content.map((line, index) => {
             if (line.type === 'paragraph') {
-              return <p key={id}>{line.content}</p>
+              return <p key={index}>{line.content}</p>
             } else if (line.type === 'link') {
               return (
-                <p key={id}>
+                <p key={index}>
                   <a href="#">{line.content}</a>
                 </p>
               )
@@ -43,7 +56,7 @@ export function Post({author, publishedAt, content, id}) {
         })}
       </div>
 
-      <form className={styles.commentForm}>
+      <form onSubmit={handleCreateNewComment} className={styles.commentForm}>
         <strong>Deixe seu feedback</strong>
 
         <textarea
@@ -56,7 +69,7 @@ export function Post({author, publishedAt, content, id}) {
       </form>
 
       <div className={styles.commentList}> 
-        <Comment 
+        {/* <Comment 
           author="José Alencar" 
           content="Muito legal!" 
           avatar="https://images.unsplash.com/photo-1487222477894-8943e31ef7b2"
@@ -70,7 +83,12 @@ export function Post({author, publishedAt, content, id}) {
           author="Ruan Kaio" 
           content="Projeto bem estruturado, parabéns!" 
           avatar="https://images.unsplash.com/photo-1584999734482-0361aecad844"
-        />
+        /> */}
+        {
+          comments.map(comment => {
+            return <Comment key={comment} author="José Alencar" content="Muito legal!" avatar="https://images.unsplash.com/photo-1487222477894-8943e31ef7b2"/>
+          })
+        }
       </div>
     </article>
   )

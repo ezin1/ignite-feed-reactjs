@@ -7,9 +7,9 @@ import { useState } from 'react';
 
 export function Post({author, publishedAt, content}) {
     const [comments, setComments] = useState([
-      {author: "José Alencar", content: "Muito legal!", avatar: "https://images.unsplash.com/photo-1487222477894-8943e31ef7b2"},
-      {author: "Maria Silva", content: "Gostei muito da interface!", avatar: "https://images.unsplash.com/photo-1494790108377-be9c29b29330" },
-      {author: "Ruan Kaio", content: "Projeto bem estruturado, parabéns!", avatar: "https://images.unsplash.com/photo-1584999734482-0361aecad844"}
+      {id: 1, author: "José Alencar", content: "Muito legal!", avatar: "https://images.unsplash.com/photo-1487222477894-8943e31ef7b2"},
+      {id: 2, author: "Maria Silva", content: "Gostei muito da interface!", avatar: "https://images.unsplash.com/photo-1494790108377-be9c29b29330" },
+      {id: 3, author: "Ruan Kaio", content: "Projeto bem estruturado, parabéns!", avatar: "https://images.unsplash.com/photo-1584999734482-0361aecad844"}
     ]);
 
     const [newCommentText, setNewCommentText] = useState("");
@@ -42,11 +42,11 @@ export function Post({author, publishedAt, content}) {
       }
 
       event.preventDefault();
-      console.log(event.target.commentArea.value, 'target');
+      
       const randomAvatarandName = generateRandomAvatarAndName();
-
+      const id = comments.length + 1;
       const newComment = [
-          {author: randomAvatarandName.name, content: newCommentText, avatar: randomAvatarandName.avatar}        
+          {id: id, author: randomAvatarandName.name, content: newCommentText, avatar: randomAvatarandName.avatar}        
       ]
       
       setComments([...comments, ...newComment]);
@@ -78,12 +78,12 @@ export function Post({author, publishedAt, content}) {
       </header>
 
       <div className={styles.content}>
-        {content.map((line, index) => {
+        {content.map((line ) => {
             if (line.type === 'paragraph') {
-              return <p key={index}>{line.content}</p>
+              return <p key={line.content}>{line.content}</p>
             } else if (line.type === 'link') {
               return (
-                <p key={index}>
+                <p key={line.content}>
                   <a href="#">{line.content}</a>
                 </p>
               )
@@ -126,7 +126,7 @@ export function Post({author, publishedAt, content}) {
         /> */}
         {
           comments.map(comment => {
-            return <Comment key={comment.author} author={comment.author} content={comment.content}avatar={comment.avatar}/>
+            return <Comment key={comment.id} author={comment.author} content={comment.content}avatar={comment.avatar}/>
           })
         }
       </div>

@@ -12,7 +12,7 @@ export function Post({author, publishedAt, content}) {
       {id: 3, author: "Ruan Kaio", content: "Projeto bem estruturado, parabéns!", avatar: "https://images.unsplash.com/photo-1584999734482-0361aecad844"}
     ]);
 
-    const [newCommentText, setNewCommentText] = useState("");
+    const [newCommentText, setNewCommentText] = useState('');
     
     const publishedDateFormatted = format(publishedAt, "d 'de' LLLL 'às' HH:mm'h'", {locale: ptBR});
 
@@ -37,10 +37,6 @@ export function Post({author, publishedAt, content}) {
 
     function handleCreateNewComment (event) {
 
-      if(newCommentText.trim() === "") {
-        return;
-      }
-
       event.preventDefault();
       
       const randomAvatarandName = generateRandomAvatarAndName();
@@ -56,10 +52,22 @@ export function Post({author, publishedAt, content}) {
     }
 
     function handleNewCommentChange(event) {
+      event.target.setCustomValidity('');
       setNewCommentText(event.target.value);
     }
 
+    function deleteComment(commentId) {
+      const commentsWithoutDeletedOne = comments.filter(comment => comment.id !== commentId);
+      
+      setComments(commentsWithoutDeletedOne);
+    }
 
+    function handleNewCommentInvalid(event) {
+      event.target.setCustomValidity('Esse campo é obrigatório!');
+    }
+
+    
+    const isNewCommentEmpty = newCommentText.length === 0;
 
   return (
     <article className={styles.post}>
@@ -101,10 +109,14 @@ export function Post({author, publishedAt, content}) {
           placeholder="Escreva um comentário..."
           value={newCommentText}
           onChange={handleNewCommentChange}
+          onInvalid={handleNewCommentInvalid}
+          required
         />
 
         <footer>
-          <button type='submit'>Publicar</button>
+          <button type='submit' disabled={isNewCommentEmpty}>
+            Publicar
+          </button>
         </footer>
       </form>
 
@@ -126,7 +138,16 @@ export function Post({author, publishedAt, content}) {
         /> */}
         {
           comments.map(comment => {
-            return <Comment key={comment.id} author={comment.author} content={comment.content}avatar={comment.avatar}/>
+            return (
+              <Comment 
+                key={comment.id} 
+                id={comment.id}
+                author={comment.author} 
+                content={comment.content}
+                avatar={comment.avatar} 
+                onDeleteComment={deleteComment}
+              />
+            )
           })
         }
       </div>

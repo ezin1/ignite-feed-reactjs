@@ -1,6 +1,10 @@
 import styles from './Comment.module.css';
-import {ThumbsUp, Trash} from 'phosphor-react';
+import {Trash, HandsClapping} from 'phosphor-react';
+import { useState } from 'react';
 export function Comment({id, author, content, avatar, onDeleteComment}) {
+    
+    const [likeCount, setLikeCount] = useState(0);
+
     let dateTime = new Date();
     dateTime.setHours(dateTime.getHours() - 1);
     let formattedDate = dateTime.toLocaleString('pt-BR');
@@ -8,6 +12,13 @@ export function Comment({id, author, content, avatar, onDeleteComment}) {
     function handleDeleteComment() {
         onDeleteComment(id);
     }
+
+    function handleLikeComment() {
+        setLikeCount((state) => {
+            return state + 1;
+        });
+    }
+
 
     return (
         <div className={styles.comment}>
@@ -31,9 +42,9 @@ export function Comment({id, author, content, avatar, onDeleteComment}) {
                 </div>
 
                 <footer>
-                    <button>
-                        <ThumbsUp size={20} />
-                        Aplaudir <span>20</span>
+                    <button onClick={handleLikeComment}>
+                        <HandsClapping size={20} />
+                        Aplaudir <span>{likeCount}</span>
                     </button>
                 </footer>
 

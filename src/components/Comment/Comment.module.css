@@ -88,3 +88,50 @@
     content: "\2022";
     padding: 0 0.25rem;
 }
+
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
+}
+
+.modalDeleteComment {
+  width: 27rem;
+  height: 14.875rem;
+  background-color: var(--gray-800);
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 1.5rem 2rem 2rem;
+  z-index: 1000;
+}
+
+.modalDeleteComment h1 {
+  margin-bottom: 1.5rem;
+}
+
+.modalDeleteComment p {
+  margin-bottom: 1.5rem;
+}
+
+
+.modalButtons {
+  display: flex;
+  gap: 1rem; 
+}
+
+.modalDeleteComment button {
+  margin: 0; 
+  padding: 0.5rem 1rem;
+}
+

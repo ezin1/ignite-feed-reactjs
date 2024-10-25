@@ -2,10 +2,23 @@ import styles from './Post.module.css';
 import {format, formatDistanceToNow} from 'date-fns';
 import { ptBR } from 'date-fns/locale';
 import { Comment } from '../Comment/Comment';
-import { useState } from 'react';
+import { ChangeEvent, FormEvent, InvalidEvent, useState } from 'react';
 
 
-export function Post({author, publishedAt, content}) {
+interface PostProps {
+  author: {
+    name: string;
+    avatarUrl: string;
+    role: string;
+  };
+  publishedAt: Date;
+  content: {
+    type: string;
+    content: string;
+  }[];
+}
+
+export function Post({author, publishedAt, content}: PostProps) {
     const [comments, setComments] = useState([
       {id: 1, author: "José Alencar", content: "Muito legal!", avatar: "https://images.unsplash.com/photo-1487222477894-8943e31ef7b2"},
       {id: 2, author: "Maria Silva", content: "Gostei muito da interface!", avatar: "https://images.unsplash.com/photo-1494790108377-be9c29b29330" },
@@ -35,7 +48,7 @@ export function Post({author, publishedAt, content}) {
       addSuffix: true
     });
 
-    function handleCreateNewComment (event) {
+    function handleCreateNewComment (event: FormEvent) {
 
       event.preventDefault();
       
@@ -51,18 +64,18 @@ export function Post({author, publishedAt, content}) {
     
     }
 
-    function handleNewCommentChange(event) {
+    function handleNewCommentChange(event: ChangeEvent<HTMLTextAreaElement>) {
       event.target.setCustomValidity('');
       setNewCommentText(event.target.value);
     }
 
-    function deleteComment(commentId) {
+    function deleteComment(commentId: number) {
       const commentsWithoutDeletedOne = comments.filter(comment => comment.id !== commentId);
       
       setComments(commentsWithoutDeletedOne);
     }
 
-    function handleNewCommentInvalid(event) {
+    function handleNewCommentInvalid(event: InvalidEvent<HTMLTextAreaElement>) {
       event.target.setCustomValidity('Esse campo é obrigatório!');
     }
 
@@ -121,21 +134,6 @@ export function Post({author, publishedAt, content}) {
       </form>
 
       <div className={styles.commentList}> 
-        {/* <Comment 
-          author="José Alencar" 
-          content="Muito legal!" 
-          avatar="https://images.unsplash.com/photo-1487222477894-8943e31ef7b2"
-        />
-        <Comment 
-          author="Maria Silva" 
-          content="Gostei muito da interface!" 
-          avatar="https://images.unsplash.com/photo-1494790108377-be9c29b29330"
-        />
-        <Comment 
-          author="Ruan Kaio" 
-          content="Projeto bem estruturado, parabéns!" 
-          avatar="https://images.unsplash.com/photo-1584999734482-0361aecad844"
-        /> */}
         {
           comments.map(comment => {
             return (

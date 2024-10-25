@@ -1,13 +1,22 @@
 import styles from './Comment.module.css';
 import {Trash, HandsClapping} from 'phosphor-react';
 import { useState } from 'react';
-export function Comment({id, author, content, avatar, onDeleteComment}) {
+
+interface CommentProps {
+    id: number;
+    author: string;
+    content: string;
+    avatar: string;
+    onDeleteComment: (commentId: number) => void;
+}
+
+export function Comment({id, author, content, avatar, onDeleteComment}: CommentProps) {
     
     const [likeCount, setLikeCount] = useState(0);
 
-    let dateTime = new Date();
+    const dateTime = new Date();
     dateTime.setHours(dateTime.getHours() - 1);
-    let formattedDate = dateTime.toLocaleString('pt-BR');
+    const formattedDate = dateTime.toLocaleString('pt-BR');
 
     function handleDeleteComment() {
         onDeleteComment(id);
@@ -34,7 +43,7 @@ export function Comment({id, author, content, avatar, onDeleteComment}) {
                         </div>
 
                         <button onClick={handleDeleteComment} title="Deletar comentário">
-                            <Trash syze={24} />
+                            <Trash size={24} />
                         </button>
                     </header>
 

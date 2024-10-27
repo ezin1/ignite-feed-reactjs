@@ -78,8 +78,8 @@ export function Comment({
             <h1>Excluir comentário</h1>
             <p>Você tem certeza que deseja excluir este comentário?</p>
             <div className={styles.modalButtons}>
-              <button onClick={handleCloseModal}>Cancelar</button>
-              <button onClick={handleDeleteComment}>Sim, excluir</button>
+              <button className={styles.buttonCancel} onClick={handleCloseModal}>Cancelar</button>
+              <button className={styles.buttonAccept} onClick={handleDeleteComment}>Sim, excluir</button>
             </div>
           </div>
         </div>

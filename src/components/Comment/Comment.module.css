@@ -95,7 +95,7 @@
   left: 0;
   width: 100vw;
   height: 100vh;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: rgba(0, 0, 0, 0.75);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -116,22 +116,50 @@
   z-index: 1000;
 }
 
-.modalDeleteComment h1 {
+.modalDeleteComment h1 { 
   margin-bottom: 1.5rem;
+  font-size: 1.5rem;
+  line-height: 2.1rem;
 }
 
 .modalDeleteComment p {
   margin-bottom: 1.5rem;
+  font-size: 1rem;
+  line-height: 1.625rem;
 }
 
 
 .modalButtons {
   display: flex;
   gap: 1rem; 
+  width: 16.625rem;
+  height: 3rem;
+  justify-content: center;
 }
 
 .modalDeleteComment button {
   margin: 0; 
   padding: 0.5rem 1rem;
+  gap: 1.5rem;
 }
+
+.buttonCancel {
+  background-color: transparent;
+  color: var(--gray-100);
+  border: 0;
+  font-size: 0.875rem;
+  line-height: 1.5rem;
+}
+
+.buttonAccept {
+  background-color: var(--gray-700);
+  color: var(--red-500);
+  border: 0;
+  border-radius: 8px;
+  font-size: 0.875rem;
+  line-height: 1.5rem;
+}
+
+
+
 
